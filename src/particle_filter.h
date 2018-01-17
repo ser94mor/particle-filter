@@ -48,9 +48,9 @@ public:
 	ParticleFilter() : num_particles(0), is_initialized(false) {}
 
 	// Destructor
-	~ParticleFilter() {}
+	~ParticleFilter() = default;
 
-	/**
+  /**
 	 * init Initializes particle filter by initializing particles to Gaussian
 	 *   distribution around first position and all the weights to 1.
 	 * @param x Initial x position [m] (simulated estimate from GPS)
@@ -99,7 +99,8 @@ public:
 
 	/*
 	 * Set a particles list of associations, along with the associations calculated world x,y coordinates
-	 * This can be a very useful debugging tool to make sure transformations are correct and assocations correctly connected
+	 * This can be a very useful debugging tool to make sure transformations are correct
+	 * and associations are correctly connected
 	 */
 	Particle SetAssociations(Particle& particle, const std::vector<int>& associations,
 		                     const std::vector<double>& sense_x, const std::vector<double>& sense_y);
@@ -116,7 +117,5 @@ public:
 		return is_initialized;
 	}
 };
-
-
 
 #endif /* PARTICLE_FILTER_H_ */

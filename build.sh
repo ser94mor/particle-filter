@@ -3,11 +3,15 @@
 #
 # Given parameters are passed over to CMake.
 # Examples:
-#    * ./build_all.sh -DCMAKE_BUILD_TYPE=Debug
-#    * ./build_all.sh VERBOSE=1
+#    * ./build.sh -DCMAKE_BUILD_TYPE=Debug
+#    * ./build.sh VERBOSE=1
 #
 # Written by Tiffany Huang, 12/14/2016
+# Modified by Sergey Morozov, 01/17/2018
 #
+
+# Fail on any error
+set -e
 
 # Go into the directory where this bash script is contained.
 cd `dirname $0`

@@ -1,7 +1,7 @@
 #include <uWS/uWS.h>
+#include <cmath>
 #include <iostream>
 #include "json.hpp"
-#include <math.h>
 #include "particle_filter.h"
 
 using namespace std;
@@ -14,8 +14,8 @@ using json = nlohmann::json;
 // else the empty string "" will be returned.
 std::string hasData(std::string s) {
   auto found_null = s.find("null");
-  auto b1 = s.find_first_of("[");
-  auto b2 = s.find_first_of("]");
+  auto b1 = s.find_first_of('[');
+  auto b2 = s.find_first_of(']');
   if (found_null != std::string::npos) {
     return "";
   }
@@ -51,11 +51,11 @@ int main()
     // The 4 signifies a websocket message
     // The 2 signifies a websocket event
 
-    if (length && length > 2 && data[0] == '4' && data[1] == '2')
+    if (length > 2 && data[0] == '4' && data[1] == '2')
     {
 
       auto s = hasData(std::string(data));
-      if (s != "") {
+      if (!s.empty()) {
       	
       	
         auto j = json::parse(s);
@@ -73,10 +73,9 @@ int main()
 			double sense_theta = std::stod(j[1]["sense_theta"].get<std::string>());
 
 			pf.init(sense_x, sense_y, sense_theta, sigma_pos);
-		  }
-		  else {
+		  } else {
 			// Predict the vehicle's next state from previous (noiseless control) data.
-		  	double previous_velocity = std::stod(j[1]["previous_velocity"].get<std::string>());
+		  double previous_velocity = std::stod(j[1]["previous_velocity"].get<std::string>());
 			double previous_yawrate = std::stod(j[1]["previous_yawrate"].get<std::string>());
 
 			pf.prediction(delta_t, sigma_pos, previous_velocity, previous_yawrate);
@@ -104,7 +103,7 @@ int main()
 
         	for(int i = 0; i < x_sense.size(); i++)
         	{
-        		LandmarkObs obs;
+        		LandmarkObs obs{};
         		obs.x = x_sense[i];
 				obs.y = y_sense[i];
 				noisy_observations.push_back(obs);
@@ -116,7 +115,7 @@ int main()
 
 		  // Calculate and output the average weighted error of the particle filter over all time steps so far.
 		  vector<Particle> particles = pf.particles;
-		  int num_particles = particles.size();
+		  int num_particles = static_cast<int>(particles.size());
 		  double highest_weight = -1.0;
 		  Particle best_particle;
 		  double weight_sum = 0.0;
@@ -189,90 +188,3 @@ int main()
   }
   h.run();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
