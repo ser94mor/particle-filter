@@ -3,6 +3,9 @@
  *
  *  Created on: Dec 12, 2016
  *      Author: Tiffany Huang
+ *
+ *  Modified on: Dec 12, 2018
+ *      Author: Sergey Morozov
  */
 
 #include <random>
