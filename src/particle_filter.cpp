@@ -17,8 +17,9 @@
 using namespace std;
 
 void ParticleFilter::init(double x, double y, double theta, const double std[]) {
-  // parameter was chosen based on the several experiment results; this value provides the best error
-  num_particles = 100;
+  // parameter was chosen based on the several experiment results;
+  // this value provides the best performance (better than higher and lower number of particles) and error
+  num_particles = 1024;
 
   // default weight value is 1
   weights = std::vector<double>(static_cast<unsigned long>(num_particles), 1.0);
